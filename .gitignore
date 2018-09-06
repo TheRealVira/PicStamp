@@ -1,2 +1,13 @@
-*.bmp
+# Ignoring everything
+*
+
+# but Not those files
+
+!.gitignore
+!manifest.mf
+!build.xml
+!LICENSE
+!build.xml
+
+# but nothing in subdirectories
 !*/
