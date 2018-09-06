@@ -1,0 +1,2 @@
+*.bmp
+!*/src/picstamp/base.bmp
