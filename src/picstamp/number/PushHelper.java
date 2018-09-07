@@ -13,100 +13,145 @@ import picstamp.Bitmap;
  */
 abstract class PushHelper {
     public static void pushUpper(Bitmap bitmap, byte[] color){
+        Boundaries b = bitmap.getBoundaries();
+        int width=b.getWidth(),
+            height=b.getHeight();
+        
         pushLine(
                 bitmap,
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2-bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()+bitmap.getBoundaries().getHeight()/10),
+                        width/2-width/4,
+                        height/10),
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2+bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()+bitmap.getBoundaries().getHeight()/10),
+                        width/2+width/4,
+                        height/10),
                 color
         );
     }
     
     public static void pushUpperLeft(Bitmap bitmap, byte[] color){
+        Boundaries b = bitmap.getBoundaries();
+        int width=b.getWidth(),
+            height=b.getHeight();
+        
         pushLine(
                 bitmap,
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2-bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()+bitmap.getBoundaries().getHeight()/10),
+                        width/2-width/4,
+                        height+height/10),
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2-bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()/2),
+                        width/2-width/4,
+                        height/2),
                 color
         );
     }
     
     public static void pushUpperRight(Bitmap bitmap, byte[] color){
+        Boundaries b = bitmap.getBoundaries();
+        int width=b.getWidth(),
+            height=b.getHeight();
+        
         pushLine(
                 bitmap,
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2+bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()+bitmap.getBoundaries().getHeight()/10),
+                        width/2+width/4,
+                        height+height/10),
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2+bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()/2),
+                        width/2+width/4,
+                        height/2),
                 color
         );
     }
     
     public static void pushMiddle(Bitmap bitmap, byte[] color){
+        Boundaries b = bitmap.getBoundaries();
+        int width=b.getWidth(),
+            height=b.getHeight();
         
         pushLine(
                 bitmap,
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2-bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()/2),
+                        width/2-width/4,
+                        height/2),
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2+bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()/2),
+                        width/2+width/4,
+                        height/2),
                 color
         );
     }
     
     public static void pushLowerLeft(Bitmap bitmap, byte[] color){
+        Boundaries b = bitmap.getBoundaries();
+        int width=b.getWidth(),
+            height=b.getHeight();
+        
         pushLine(
                 bitmap,
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2-bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()/2),
+                        width/2-width/4,
+                        height/2),
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2-bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()-bitmap.getBoundaries().getHeight()/10),
+                        width/2-width/4,
+                        height-height/10),
                 color
         );
     }
     
     public static void pushLowerRight(Bitmap bitmap, byte[] color){
+        Boundaries b = bitmap.getBoundaries();
+        int width=b.getWidth(),
+            height=b.getHeight();
+        
         pushLine(
                 bitmap,
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2+bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()/2),
+                        width/2+width/4,
+                        height/2),
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2+bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()-bitmap.getBoundaries().getHeight()/10),
+                        width/2+width/4,
+                        height-height/10),
                 color
         );
     }
     
     public static void pushLower(Bitmap bitmap, byte[] color){
+        Boundaries b = bitmap.getBoundaries();
+        int width=b.getWidth(),
+            height=b.getHeight();
+        
         pushLine(
                 bitmap,
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2-bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()-bitmap.getBoundaries().getHeight()/10),
+                        width/2-width/4,
+                        height-height/10),
                 new Position(
-                        bitmap.getBoundaries().getWidth()/2+bitmap.getBoundaries().getWidth()/4,
-                        bitmap.getBoundaries().getHeight()-bitmap.getBoundaries().getHeight()/10),
+                        width/2+width/4,
+                        height-height/10),
                 color
         );
     }
     
     private static void pushLine(Bitmap bitmap, Position from, Position to, byte[] color){
-        //throw new NotImplementedException();
-        bitmap.setPixel(to, color);
-        bitmap.setPixel(from, color);
+        do{
+            bitmap.setPixel(from, color);
+            
+            Pair<Double, Double> normalized = 
+                    Position.normalize(to.subtract(from));
+            
+            if(Math.abs(normalized.t)>Math.abs(normalized.u)){
+                from.setX(from.getX()+(int)Math.floor(normalized.t));
+                continue;
+            }
+            
+            if(Math.abs(normalized.t)<Math.abs(normalized.u)){
+                from.setY(from.getY()+(int)Math.floor(normalized.u));
+                continue;
+            }
+            
+            if(normalized.t!=0&&normalized.t.equals(Float.NaN)){
+                from.setX(from.getX()+(int)Math.floor(normalized.t));
+            }
+            
+        }while(!from.equals(to));
     }
 }

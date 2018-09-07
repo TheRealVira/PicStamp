@@ -234,9 +234,9 @@ public class Bitmap {
     
     private boolean isOutOfBounds(Position pos){
         return pos.getX()<0||
-                pos.getX()>WIDTH || 
+                pos.getX()>=WIDTH || 
                 pos.getY()<0 || 
-                pos.getY()>HEIGHT;
+                pos.getY()>=HEIGHT;
     }
     
     private int getIndexOfPosition(Position pos){
