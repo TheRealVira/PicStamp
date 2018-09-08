@@ -13,6 +13,7 @@ public abstract class ApproachFactory {
     
     public static final String GRAPHICAL_APPROACH = "GRAPHICS";
     public static final String BITWISE_APPROACH = "BITWISE";
+    public static final String MASK_APPROACH = "MASK";
     
     private ApproachFactory(){}
     
@@ -27,6 +28,10 @@ public abstract class ApproachFactory {
         
         if(approach.toUpperCase().equals(BITWISE_APPROACH)){
             return new BitwiseApproach();
+        }
+        
+        if(approach.toUpperCase().equals(MASK_APPROACH)){
+            return new MaskApproach();
         }
         
         return null;
