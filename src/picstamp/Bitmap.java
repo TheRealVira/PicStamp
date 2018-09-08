@@ -9,13 +9,15 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import picstamp.number.Boundaries;
 import picstamp.number.Position;
 
 /**
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * 
  * Header = 14 bytes
  * |-> SIGNATUR =   2 bytes
  * |-> FILESIZE =   4 bytes
@@ -60,7 +62,7 @@ public class Bitmap {
         return new Boundaries(HEIGHT-1, WIDTH-1);
     }
     
-    private byte[] test;
+    private final String FILENAME;
     
     public Bitmap(String file){
         try {
@@ -68,6 +70,8 @@ public class Bitmap {
         } catch (IOException ex) {
             Logger.getLogger(Bitmap.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        FILENAME = file;
     }
     
     private void load(byte[] source){
@@ -79,8 +83,6 @@ public class Bitmap {
                 0x0E + HEADER_SIZE,
                 DATA_OFFSET - 0x0E - HEADER_SIZE);
         pixelData   = copySubArray(source, DATA_OFFSET, source.length-DATA_OFFSET);
-        
-        test = source;
     }
     
     private void loadHeader(byte[] source){
@@ -257,5 +259,10 @@ public class Bitmap {
         for (int i = index; i < index+paste.length; i++) {
             source[i]=paste[i-index];
         }
+    }
+    
+    @Override
+    public Object clone() throws CloneNotSupportedException {
+        return new Bitmap(FILENAME);
     }
 }

@@ -15,7 +15,8 @@ import picstamp.number.Position;
  *
  * @author vira
  */
-class MaskApproach implements _Approach {
+public class MaskApproach implements _Approach {
+    MaskApproach(){}
     
     public static String MASKS = "./masks";
     public static String FILE_BASENAME = "/output_image";
@@ -26,17 +27,20 @@ class MaskApproach implements _Approach {
             Bitmap base = new Bitmap(baseFile);
             Bitmap mask = new Bitmap(MASKS+FILE_BASENAME+i+".bmp");
             
-            for (int x = 0; x < mask.getBoundaries().getWidth(); x++) {
-                for (int y = 0; y < mask.getBoundaries().getHeight(); y++) {
-                    byte[] currentPixel = mask.getPixel(new Position(x, y));
-                    if(Arrays.equals(currentPixel,new byte[]{0x00})){
-                        base.setPixel(new Position(x, y), color);
-                    }
-                }
-            }
+            mask(base, mask, color);
             
             base.save(FileManager.generateCircleFilename((short)i));
         }
     }
     
+    public static void mask(Bitmap base, Bitmap mask, byte[] color){
+        for (int x = 0; x < mask.getBoundaries().getWidth(); x++) {
+            for (int y = 0; y < mask.getBoundaries().getHeight(); y++) {
+                byte[] currentPixel = mask.getPixel(new Position(x, y));
+                if(Arrays.equals(currentPixel,new byte[]{0x00})){
+                    base.setPixel(new Position(x, y), color);
+                }
+            }
+        }
+    }
 }
