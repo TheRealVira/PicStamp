@@ -232,6 +232,10 @@ public class Bitmap {
         overrideSubArray(pixelData, getIndexOfPosition(pos), color);
     }
     
+    public byte[] getPixel(Position pos){
+        return copySubArray(pixelData, getIndexOfPosition(pos), BpP/8);
+    }
+    
     private boolean isOutOfBounds(Position pos){
         return pos.getX()<0||
                 pos.getX()>=WIDTH || 

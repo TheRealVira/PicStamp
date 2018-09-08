@@ -18,7 +18,7 @@ public class PicStamp {
     /*
         SETTINGS
     */
-    private static final String BASE_NAME = "/home/vira/NetBeansProjects/PicStamp/src/picstamp/base.bmp";
+    private static final String BASE_NAME = "./base.bmp";
     private static final String APPROACH = ApproachFactory.BITWISE_APPROACH;
     
     /**
