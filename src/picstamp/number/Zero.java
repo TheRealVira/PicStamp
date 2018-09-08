@@ -21,6 +21,18 @@ class Zero implements _Number {
         PushHelper.pushLowerLeft(bitmap, color);
         PushHelper.pushLowerRight(bitmap, color);
         PushHelper.pushLower(bitmap, color);
+        
+        PushHelper.pushLine(bitmap,
+                new Position(bitmap.getBoundaries().getWidth()/3,
+                        bitmap.getBoundaries().getHeight()/3),
+                new Position(bitmap.getBoundaries().getWidth()-bitmap.getBoundaries().getWidth()/3,
+                        bitmap.getBoundaries().getHeight()-bitmap.getBoundaries().getHeight()/3), color);
+        
+        PushHelper.pushLine(bitmap,
+                new Position(bitmap.getBoundaries().getWidth()-bitmap.getBoundaries().getWidth()/3,
+                        bitmap.getBoundaries().getHeight()/3),
+                new Position(bitmap.getBoundaries().getWidth()/3,
+                        bitmap.getBoundaries().getHeight()-bitmap.getBoundaries().getHeight()/3), color);
     }
     
 }

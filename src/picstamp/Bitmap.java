@@ -240,7 +240,7 @@ public class Bitmap {
     }
     
     private int getIndexOfPosition(Position pos){
-        return pos.getY()*HEIGHT+pos.getX()*(BpP/8);
+        return (HEIGHT-pos.getY()-1)*HEIGHT+pos.getX()*(BpP/8);
     }
     
     private static byte[] copySubArray(byte[] source, int index, int size){

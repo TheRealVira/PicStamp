@@ -38,7 +38,7 @@ abstract class PushHelper {
                 bitmap,
                 new Position(
                         width/2-width/4,
-                        height+height/10),
+                        height/10),
                 new Position(
                         width/2-width/4,
                         height/2),
@@ -55,7 +55,7 @@ abstract class PushHelper {
                 bitmap,
                 new Position(
                         width/2+width/4,
-                        height+height/10),
+                        height/10),
                 new Position(
                         width/2+width/4,
                         height/2),
@@ -131,7 +131,7 @@ abstract class PushHelper {
         );
     }
     
-    private static void pushLine(Bitmap bitmap, Position from, Position to, byte[] color){
+    public static void pushLine(Bitmap bitmap, Position from, Position to, byte[] color){
         do{
             bitmap.setPixel(from, color);
             
@@ -139,19 +139,27 @@ abstract class PushHelper {
                     Position.normalize(to.subtract(from));
             
             if(Math.abs(normalized.t)>Math.abs(normalized.u)){
-                from.setX(from.getX()+(int)Math.floor(normalized.t));
+                from.setX(from.getX()+reatliveCeil(normalized.t));
                 continue;
             }
             
             if(Math.abs(normalized.t)<Math.abs(normalized.u)){
-                from.setY(from.getY()+(int)Math.floor(normalized.u));
+                from.setY(from.getY()+reatliveCeil(normalized.u));
                 continue;
             }
             
-            if(normalized.t!=0&&normalized.t.equals(Float.NaN)){
-                from.setX(from.getX()+(int)Math.floor(normalized.t));
+            if(!(normalized.t.equals(0)||normalized.t.equals(Float.NaN))){
+                from.setX(from.getX()+reatliveCeil(normalized.t));
             }
             
         }while(!from.equals(to));
+    }
+    
+    private static int reatliveCeil(double number){
+        if(number<0){
+            return (int)(-1*Math.ceil(Math.abs(number)));
+        }
+        
+        return (int)Math.ceil(number);
     }
 }
