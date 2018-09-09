@@ -5,12 +5,14 @@
  */
 package picstamp.number;
 
+import picstamp.Pair;
+
 /**
  *
  * @author vira
  */
 public class Position {
-    private Pair<Integer, Integer> position;
+    private final Pair<Integer, Integer> position;
     private Double Length;
     
     public Position(int x, int y){

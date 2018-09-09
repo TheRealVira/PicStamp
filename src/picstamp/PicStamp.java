@@ -19,7 +19,7 @@ public class PicStamp {
         SETTINGS
     */
     private static final String BASE_NAME = "./base.bmp";
-    private static final String APPROACH = ApproachFactory.BITWISE_APPROACH;
+    private static final String APPROACH = ApproachFactory.GENETIC_APPROACH;
     
     /**
      * @param args the command line arguments

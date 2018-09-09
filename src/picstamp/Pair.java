@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package picstamp.number;
+package picstamp;
 
 /**
  *
  * @author vira
  */
-class Pair<T, U> {         
+public class Pair<T, U> {         
     public T t;
     public U u;
 

@@ -5,6 +5,7 @@
  */
 package picstamp.number;
 
+import picstamp.Pair;
 import picstamp.Bitmap;
 
 /**
